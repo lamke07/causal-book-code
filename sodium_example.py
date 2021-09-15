@@ -23,6 +23,7 @@ def generate_data(n=1000, seed=0, beta1=1.05, alpha1=0.4, alpha2=0.3, binary_tre
     return pd.DataFrame({'blood_pressure': blood_pressure, 'sodium': sodium,
                          'age': age, 'proteinuria': proteinuria})
 
+x = generate_data()
 
 # +
 df = generate_data(beta1=1.05, alpha1=.4, alpha2=.3, binary_treatment=True, n=10000000)
