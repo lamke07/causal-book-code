@@ -24,6 +24,22 @@ def generate_data(n=1000, seed=0, beta1=1.05, alpha1=0.4, alpha2=0.3, binary_tre
                          'age': age, 'proteinuria': proteinuria})
 
 
+# +
+df = generate_data(beta1=1.05, alpha1=.4, alpha2=.3, binary_treatment=True, n=10000000)
+
+Xt = df[['sodium', 'age', 'proteinuria']]
+y = df['blood_pressure']
+model = LinearRegression()
+model.fit(Xt,y)
+
+Xt1 = pd.DataFrame.copy(Xt)
+Xt1['sodium'] = 1
+Xt0 = pd.DataFrame.copy(Xt)
+Xt0['sodium'] = 0
+
+
+# -
+
 def estimate_causal_effect(Xt, y, model=LinearRegression(), treatment_idx=0, regression_coef=False):
     model.fit(Xt, y)
     if regression_coef:
@@ -74,3 +90,22 @@ if __name__ == '__main__':
         print('ATE estimate adjusting for all covariates:\t', ate_est_adjust_all)
         print('ATE estimate adjusting for age:\t\t\t\t', ate_est_adjust_age)
         print()
+
+# +
+df = generate_data(beta1=1.05, alpha1=.4, alpha2=.3, binary_treatment=True, n=10000000)
+
+Xt = df[['sodium', 'age', 'proteinuria']]
+y = df['blood_pressure']
+model = LinearRegression()
+model.fit(Xt,y)
+
+Xt1 = pd.DataFrame.copy(Xt)
+Xt1['sodium'] = 1
+Xt0 = pd.DataFrame.copy(Xt)
+Xt0['sodium'] = 0
+# -
+
+ate_est = np.mean(model.predict(Xt1) - model.predict(Xt0))
+print('ATE estimate:', ate_est)
+ate_est_alternative = model.coef_
+print('Alternative ATE estimate:', ate_est_alternative)
