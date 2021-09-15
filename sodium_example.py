@@ -105,7 +105,4 @@ Xt0 = pd.DataFrame.copy(Xt)
 Xt0['sodium'] = 0
 # -
 
-ate_est = np.mean(model.predict(Xt1) - model.predict(Xt0))
-print('ATE estimate:', ate_est)
-ate_est_alternative = model.coef_
-print('Alternative ATE estimate:', ate_est_alternative)
+
